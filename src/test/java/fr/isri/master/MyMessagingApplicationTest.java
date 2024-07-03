@@ -19,7 +19,7 @@ class MyMessagingApplicationTest {
 
     @Test
     void test() {
-        assertEquals("HELLO", application.toUpperCase(Message.of("Hello")).getPayload());
-        assertEquals("BONJOUR", application.toUpperCase(Message.of("bonjour")).getPayload());
+        assertEquals(32.0, application.celsiusToFahrenheit(Message.of(0.0)).getPayload());
+        assertEquals(77.0, application.celsiusToFahrenheit(Message.of(25.0)).getPayload());
     }
 }
