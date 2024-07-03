@@ -15,26 +15,25 @@ import java.time.Duration;
 public class Station {
 
     @Inject
-    @Channel("celsius-out")
+    @Channel("celsius")
     Emitter<Double> emitter;
     
     private Random random = new Random();
 
     /**
-     * Sends message to the "words-out" channel, can be used from a JAX-RS resource or any bean of your application.
-     * Messages are sent to the broker.
+     * Genere un temperature aleatoire entre 0 et 35 °C
+     * Dans le topic celsius-out
      **/
     @Outgoing("celsius-out")
     public Multi<Double> generate() {
-        // Build an infinite stream of random prices
-        // It emits a price every second
-        return Multi.createFrom().ticks().every(Duration.ofMillis(1000))
+        // Stream de temperature celsius random
+        // Emet dans celsius-out chaques secondes
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(1))
             .map(x -> random.nextDouble()*35);
     }
 
     /**
-     * Consume the message from the "words-in" channel, uppercase it and send it to the uppercase channel.
-     * Messages come from the broker.
+     * Consomme dans le topic celsius-in, convertit en fahrenheit, et poste dans le topic fahrenheit.
      **/
     @Incoming("celsius-in")
     @Outgoing("fahrenheit-out")
@@ -43,10 +42,10 @@ public class Station {
     }
 
     /**
-     * Consume the uppercase channel (in-memory) and print the messages.
+     * Consomme et affiche la temperature en fahrenheit
      **/
     @Incoming("fahrenheit-in")
     public void sink(Double fahrenheit) {
-        System.out.println(">> " + fahrenheit);
+        System.out.println(">> " + fahrenheit + " °F");
     }
 }
