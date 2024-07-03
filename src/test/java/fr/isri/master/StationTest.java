@@ -12,10 +12,10 @@ import jakarta.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-class MyMessagingApplicationTest {
+class StationTest {
 
     @Inject
-    MyMessagingApplication application;
+    Station application;
 
     @Test
     void test() {

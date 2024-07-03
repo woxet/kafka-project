@@ -12,7 +12,7 @@ import io.smallrye.mutiny.Multi;
 import java.time.Duration;
 
 @ApplicationScoped
-public class MyMessagingApplication {
+public class Station {
 
     @Inject
     @Channel("celsius-out")
